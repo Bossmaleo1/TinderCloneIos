@@ -7,12 +7,31 @@
 
 import SwiftUI
 
-struct MainTabBar: View {
+struct MainTabView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        TabView {
+            CardStackView()
+                .tabItem { Image(systemName: "flame") }
+                .tag(0)
+            
+            Text("Search View")
+                .tabItem { Image(systemName: "magnifyingglass") }
+            
+            Text("Inbox View")
+                .tabItem {
+                    Image(systemName: "bubble")
+                        .renderingMode(.template)
+                }
+                .tag(2)
+            
+            Text("Profile View")
+                .tabItem { Image(systemName: "person") }
+                .tag(3)
+        }
+        .tint(.primary)
     }
 }
 
 #Preview {
-    MainTabBar()
+    MainTabView()
 }
