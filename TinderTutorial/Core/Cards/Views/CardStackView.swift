@@ -12,14 +12,27 @@ struct CardStackView: View {
     @StateObject var viewModel = CardsViewModel(service: CardService())
     
     var body: some View {
-        ZStack {
-            ForEach(viewModel.cardModels){ card in
-                CardView(viewModel: viewModel, model: card)
+        NavigationStack {
+            VStack(spacing: 16) {
+                ZStack {
+                    ForEach(viewModel.cardModels){ card in
+                        CardView(viewModel: viewModel, model: card)
+                    }
+                }
+                
+                if !viewModel.cardModels.isEmpty {
+                    SwipeActionButtonsView(viewModel: viewModel)
+                }
+                
             }
-        }
-        .onChange(of: viewModel.cardModels) { oldValue, newValue in
-            print("DEBUG: Old value count is \(oldValue.count)")
-            print("DEBUG: New value count is \(newValue.count)")
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    Image("tinder_logo_3")
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 88)
+                }
+            }
         }
     }
 }
